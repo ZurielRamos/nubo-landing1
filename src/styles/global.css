@@ -1,10 +1,52 @@
 @import "tailwindcss";
 
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-Light.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-Regular.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Ambit';
+    src: url('/fonts/Ambit-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}
+
 :root {
     --white: #fff;
     --black: #000;
     --primary: #17375E;
-    --primary-opacity: #17375e48;
+    --primary-opacity: #17375ecd;
     --primary-light: #6F96D1;
     --primary-light-opacity: #6F96D148;
 }
@@ -14,6 +56,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Ambit', sans-serif;
 }
 
 .phase {
