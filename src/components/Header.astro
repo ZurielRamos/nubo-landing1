@@ -1,0 +1,58 @@
+---
+import LogoNubo from "../assets/icons/logo-nubo-alt.svg";
+---
+
+<header>
+    <div class="container-header">
+        <div class="logo">
+            <img src={LogoNubo.src} alt="Logo Nubo" />
+        </div>
+        <button class="menu">MENU</button>
+    </div>
+</header>
+
+<style>
+    header {
+        padding: 0rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        color: white;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .container-header {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        color: var(--primary);
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 6rem;
+        padding-right: 6rem;
+    }
+
+    .logo {
+    }
+
+    .logo img {
+        margin: auto;
+        width: 150px;
+    }
+
+    .menu {
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: 700;
+    }
+</style>
