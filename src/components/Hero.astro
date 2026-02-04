@@ -25,7 +25,22 @@ import ButtonLink from "./ButtonLink.astro";
                         descansas al final del día.
                     </p>
                 </div>
-                <a href="#" class="cta-title">Llamado a la acción 1</a>
+                <a
+                    href="#"
+                    class="text-xl font-light text-white flex gap-4 items-center"
+                    >Llamado a la acción 1
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 512 196.6"
+                        width="32"
+                    >
+                        <g>
+                            <path
+                                d="M512,93.23v9.04c-1.87,1.13-2.15,4.25-4.42,5.83l-123.98,86.39c-1.88.28-2.89.93-3.61,2.11h-1.68c-4.48-3.06-9.76-4.59-9.68-13.86.04-4.74,2.32-8.99,6.3-11.45l86.11-60.68-447.82-.13c-6.45,0-9.63-2.63-13.24-7.91v-9.64c3.63-5.22,6.81-7.85,13.23-7.85l447.85-.13-87.92-62.02c-5.07-4.52-5.77-12.08-2.72-17.41,3.21-5.62,9.2-7.19,14.46-3.53l122.69,85.42c2.25,1.57,2.54,4.72,4.41,5.83Z"
+                                fill="#fff"></path>
+                        </g>
+                    </svg>
+                </a>
             </div>
         </div>
 
@@ -135,10 +150,8 @@ import ButtonLink from "./ButtonLink.astro";
         color: white;
     }
 
-    .cta-title {
+    .title-card a {
         margin-top: 2rem;
-        font-size: 1.3rem;
-        font-weight: 600;
         color: white;
     }
 
