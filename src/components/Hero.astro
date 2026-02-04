@@ -1,0 +1,198 @@
+---
+import bg1 from "../assets/bg1.jpg";
+import bg2 from "../assets/bg1-2.jpg";
+import ButtonLink from "./ButtonLink.astro";
+---
+
+<section class="hero-container">
+    <div class="hero-bg hero-bg-1" style={`background-image: url(${bg1.src})`}>
+    </div>
+    <div class="hero-bg hero-bg-2" style={`background-image: url(${bg2.src})`}>
+    </div>
+
+    <div class="hero-content">
+        <div class="phase phase-1">
+            <div class="title-card">
+                <div class="title">
+                    <h1>Bienestar</h1>
+                    <span>que acompaña tu día</span>
+                    <strong>de principio a fin.</strong>
+                </div>
+                <div>
+                    <p>
+                        Porque el bienestar no es solo dormir bien. Es cómo te
+                        despiertas, cómo te sientas, cómo trabajas y cómo
+                        descansas al final del día.
+                    </p>
+                </div>
+                <a href="#" class="cta-title">Llamado a la acción 1</a>
+            </div>
+        </div>
+
+        <!-- <div class="half-phase">
+            <div>
+                <h2>Segunda sección</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic
+                    animi odio soluta eos delectus est voluptatibus, nam
+                    excepturi magni eius consequuntur vitae optio temporibus
+                    autem quia, aliquam ducimus fugit? Ex!
+                </p>
+            </div>
+        </div> -->
+    </div>
+</section>
+<!-- <section>
+    <h2>Un buen día empieza con un buen descanso</h2>
+</section> -->
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Initial setup: standard cover, center
+    gsap.set([".hero-bg-1", ".hero-bg-2"], {
+        backgroundPosition: "50% 50%",
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+    });
+
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".hero-container",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+        },
+    });
+
+    // Cross-fade
+    tl.to(
+        ".hero-bg-1",
+        {
+            opacity: 0,
+            ease: "none",
+        },
+        0,
+    );
+
+    // Very subtle horizontal movement
+    // Since attachment is fixed, we just shift the X position slightly
+    // From 50% (center) to 53% (slight shift)
+    tl.fromTo(
+        [".hero-bg-1", ".hero-bg-2"],
+        { backgroundPosition: "50% 50%" },
+        { backgroundPosition: "53% 50%", ease: "none" },
+        0,
+    );
+</script>
+
+<style>
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .title h1 {
+        font-size: 6rem;
+        line-height: 1;
+        font-weight: 500;
+        color: white;
+    }
+    .title span {
+        font-size: 3rem;
+        font-weight: 100;
+        line-height: 1;
+        color: white;
+    }
+    .title strong {
+        line-height: 1;
+        font-size: 4rem;
+        font-weight: 500;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+
+    .title strong::before {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 40px;
+        background-color: var(--primary);
+        position: absolute;
+        bottom: 0;
+        left: -20px;
+        z-index: -1;
+    }
+
+    .title-card p {
+        font-size: 1.3rem;
+        margin-top: 2rem;
+        font-weight: 200;
+        color: white;
+    }
+
+    .cta-title {
+        margin-top: 2rem;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .hero-container {
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+        will-change: opacity, background-position;
+    }
+
+    .hero-bg-1 {
+        z-index: 0;
+    }
+
+    .hero-bg-2 {
+        z-index: -1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    .phase {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .title-card {
+        transform: translateY(-7vh) translateX(5vw);
+        width: 50%;
+        min-height: 50%;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        border-radius: 1rem;
+        padding: 4rem;
+        /* background-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        box-shadow: 5px 5spx 10px rgba(0, 0, 0, 0.5); */
+    }
+</style>

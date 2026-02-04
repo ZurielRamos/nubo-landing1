@@ -1,0 +1,236 @@
+<section class="work">
+    <div class="phase">
+        <div class="image-animation">
+            <canvas id="sequence-canvas"></canvas>
+            <div class="title-container">
+                <h2 class="text-7xl">Bienestar</h2>
+                <span class="text-3xl font-thin">que se adapta a tu rutina</span
+                >
+                <!-- s -->
+
+                <a href="#" class="text-lg font-light mt-10"
+                    >Llamado a la acción 2</a
+                >
+            </div>
+        </div>
+        <div class="text-container">
+            <div class="text-content align-right">
+                <h3 class="text-4xl">Trabajo</h3>
+                <p class="font-light text-lg">
+                    El confort y el soporte adecuados ayudan a mantener una
+                    mejor postura y a reducir la tensión acumulada.
+                </p>
+            </div>
+            <div class="text-content mt-10">
+                <h3 class="text-4xl">Estudio</h3>
+                <p class="font-light text-lg">
+                    Bienestar que ayuda a mantener una postura cómoda mientras
+                    aprendes y te concentras.
+                </p>
+            </div>
+            <div class="text-content mt-10">
+                <h3 class="text-4xl">Ocio</h3>
+                <p class="font-light text-lg">
+                    Confort para relajarte y disfrutar tu tiempo libre sin
+                    tensión.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const canvas = document.getElementById(
+        "sequence-canvas",
+    ) as HTMLCanvasElement;
+    const context = canvas.getContext("2d");
+
+    // Import all frame images dynamically
+    const frames = import.meta.glob("/src/assets/bg-work/*.webp", {
+        eager: true,
+    });
+
+    // Convert to array and sort by filename to ensure order
+    const frameKeys = Object.keys(frames).sort();
+    const frameCount = frameKeys.length;
+
+    const images: HTMLImageElement[] = [];
+    const sequence = { frame: 0 };
+
+    // Preload images
+    frameKeys.forEach((key) => {
+        const img = new Image();
+        // @ts-ignore
+        img.src = frames[key].default.src;
+        images.push(img);
+    });
+
+    // Validar que hay imágenes antes de procesar
+    if (images.length > 0) {
+        // Wait for the first image to load to set initial size
+        images[0].onload = render;
+
+        // Setup GSAP
+        gsap.to(sequence, {
+            frame: frameCount, // Animate to total count so floor covers the last frame
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".work",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.1, // Reduced scrub for tighter control
+            },
+            onUpdate: render,
+        });
+    }
+
+    function render() {
+        if (!context || images.length === 0) return;
+
+        // Ensure index is an integer and within bounds
+        let index = Math.floor(sequence.frame);
+        if (index < 0) index = 0;
+        if (index >= images.length) index = images.length - 1;
+
+        const img = images[index];
+        if (!img) return;
+
+        // Simulate background-size: cover
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+
+        const ratio = Math.max(
+            canvasWidth / imgWidth,
+            canvasHeight / imgHeight,
+        );
+        const centerShift_x = (canvasWidth - imgWidth * ratio) / 2;
+        const centerShift_y = (canvasHeight - imgHeight * ratio) / 2;
+
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.drawImage(
+            img,
+            0,
+            0,
+            imgWidth,
+            imgHeight,
+            centerShift_x,
+            centerShift_y,
+            imgWidth * ratio,
+            imgHeight * ratio,
+        );
+    }
+
+    // Handle resizing
+    function resize() {
+        if (!canvas) return;
+        const parent = canvas.parentElement;
+        if (parent) {
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            render();
+        }
+    }
+
+    window.addEventListener("resize", resize);
+    resize(); // Initial resize
+</script>
+
+<style>
+    .work {
+        width: 100%;
+        margin-top: 10rem;
+    }
+
+    .phase {
+        width: 100%;
+        min-height: 95vh; /* Changed from height to min-height to allow growth if needed, though 95vh ref is kept */
+        display: flex;
+        align-items: flex-start; /* Critical for sticky */
+        gap: 4rem;
+    }
+
+    .image-animation {
+        width: 70%;
+        height: 95vh;
+        position: relative;
+        background-color: transparent;
+        overflow: hidden;
+        border-top-right-radius: 32px;
+        border-bottom-right-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+    }
+
+    #sequence-canvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+
+    .text-container {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        position: sticky;
+        top: 2rem; /* Stick to top with margin */
+        height: fit-content; /* Ensure it takes minimal height */
+        padding-top: 0rem; /* Align visual start if needed */
+        margin-bottom: 3rem;
+    }
+
+    .text-container p {
+        color: var(--primary);
+    }
+
+    .text-container h3 {
+        color: var(--primary);
+    }
+
+    .text-content {
+        position: relative;
+        z-index: 2;
+        border-radius: 12px;
+        padding-right: 2rem;
+        padding-left: 2rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        border-left: 5px solid var(--primary);
+        /* backdrop-filter: blur(5px); Optional */
+    }
+
+    .title-container span {
+        margin-bottom: 2rem;
+    }
+
+    .title-container {
+        position: absolute;
+        bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        border-left: 5px solid white;
+        left: 4rem;
+        padding: 4rem;
+        padding-bottom: 2rem;
+        padding-top: 2rem;
+        background-color: var(--primary);
+        backdrop-filter: blur(10px);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+        border-radius: 12px;
+        z-index: 2;
+    }
+</style>

@@ -1,0 +1,206 @@
+<section class="transport">
+    <div class="phase">
+        <div class="text-container">
+            <div class="text-content">
+                <div class="title">
+                    <h2 class="text-7xl">Soporte</h2>
+                    <span class="text-3xl">que acompaña tu</span>
+                    <span class="text-3xl font-medium"
+                        >cuerpo durante el día</span
+                    >
+                </div>
+                <p class="text-xl font-light">
+                    Pasar tiempo sentado, ya sea en casa, en la oficina o en el
+                    transporte, puede afectar cómo se siente tu cuerpo al final
+                    de la jornada.
+                    <br />
+                    <br />
+                    Nuestros cojines y soportes están diseñados para acompañar tu
+                    postura y brindar confort en los momentos donde más lo necesitas.
+                </p>
+            </div>
+        </div>
+        <div class="image-animation">
+            <canvas id="transport-canvas"></canvas>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const canvas = document.getElementById(
+        "transport-canvas",
+    ) as HTMLCanvasElement;
+    const context = canvas.getContext("2d");
+
+    // Import frames for transport
+    const frames = import.meta.glob("/src/assets/bg-transport/*.webp", {
+        eager: true,
+    });
+
+    const frameKeys = Object.keys(frames).sort();
+    const frameCount = frameKeys.length;
+
+    const images: HTMLImageElement[] = [];
+    const sequence = { frame: 0 };
+
+    frameKeys.forEach((key) => {
+        const img = new Image();
+        // @ts-ignore
+        img.src = frames[key].default.src;
+        images.push(img);
+    });
+
+    if (images.length > 0) {
+        images[0].onload = render;
+
+        // Image sequence animation
+        gsap.to(sequence, {
+            frame: frameCount,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".transport",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.1,
+            },
+            onUpdate: render,
+        });
+
+        // Text container parallax
+        gsap.to(".transport .text-container", {
+            y: -600, // Increased parallax intensity
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".transport",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.1,
+            },
+        });
+    }
+
+    function render() {
+        if (!context || images.length === 0) return;
+
+        let index = Math.floor(sequence.frame);
+        if (index < 0) index = 0;
+        if (index >= images.length) index = images.length - 1;
+
+        const img = images[index];
+        if (!img) return;
+
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+
+        const ratio = Math.max(
+            canvasWidth / imgWidth,
+            canvasHeight / imgHeight,
+        );
+        const centerShift_x = (canvasWidth - imgWidth * ratio) / 2;
+        const centerShift_y = (canvasHeight - imgHeight * ratio) / 2;
+
+        context.clearRect(0, 0, canvasWidth, canvasHeight);
+        context.drawImage(
+            img,
+            0,
+            0,
+            imgWidth,
+            imgHeight,
+            centerShift_x,
+            centerShift_y,
+            imgWidth * ratio,
+            imgHeight * ratio,
+        );
+    }
+
+    function resize() {
+        if (!canvas) return;
+        const parent = canvas.parentElement;
+        if (parent) {
+            canvas.width = parent.clientWidth;
+            canvas.height = parent.clientHeight;
+            render();
+        }
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+</script>
+
+<style>
+    .transport {
+        width: 100%;
+        margin-top: 6rem;
+    }
+
+    .phase {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: flex-end;
+        gap: 4rem;
+    }
+
+    .image-animation {
+        position: relative;
+        top: 2.5vh;
+        width: 70%;
+        height: 95vh;
+        background-color: transparent;
+        overflow: hidden;
+        border-top-left-radius: 32px;
+        border-bottom-left-radius: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white; /* Ensure text is visible over likely dark bg */
+    }
+
+    #transport-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* Behind text */
+    }
+
+    .text-container {
+        width: 30%;
+        height: 100vh;
+        display: flex;
+        padding-top: 60vh;
+        flex-direction: column;
+    }
+
+    .text-content {
+        position: relative;
+        z-index: 2; /* On top of canvas */
+        padding: 2rem;
+        padding-right: 0rem;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+    }
+
+    .title h2 {
+        color: var(--primary);
+    }
+
+    .title span {
+        color: var(--primary);
+    }
+</style>
