@@ -2,14 +2,14 @@
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-Light.ttf') format('truetype');
+    src: url('/fonts/Ambit-Light.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-Regular.ttf') format('truetype');
+    src: url('/fonts/Ambit-Regular.otf') format('opentype');
     font-weight: 500;
     font-style: normal;
 }
