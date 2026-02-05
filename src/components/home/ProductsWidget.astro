@@ -1,23 +1,120 @@
 ---
-import { getProducts } from "../../lib/woocommerce";
+import { wpClient, ALL_PRODUCTS_QUERY } from "../../lib/woocommerce";
+import ProductCard from "../ProductCard.astro";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-// src/pages/index.astro
-
-const data = await getProducts();
+// 1. Pedimos los datos a WordPress (esto ocurre en el servidor/build)
+const data = await wpClient.request(ALL_PRODUCTS_QUERY);
 const products = data.products.nodes;
 ---
 
 <div class="products-widget">
-    <h2>Productos</h2>
-    <ul>
-        {
-            products.map((product: any) => (
-                <li>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <p>{product.price}</p>
-                </li>
-            ))
-        }
-    </ul>
+    <div class="h-header">
+        <h2>Productos Destacados</h2>
+    </div>
+
+    <div class="swiper product-swiper">
+        <div class="swiper-wrapper">
+            {
+                products.map((product: any) => (
+                    <div class="swiper-slide">
+                        <ProductCard product={product} />
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
 </div>
+
+<script>
+    import Swiper from "swiper";
+    import { Navigation, Pagination, Autoplay } from "swiper/modules";
+
+    // Swiper Init
+    const swiper = new Swiper(".product-swiper", {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+            },
+            1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+            },
+        },
+    });
+</script>
+
+<style>
+    .products-widget {
+        padding: 4rem 1rem;
+        margin: 0 auto;
+    }
+
+    .h-header {
+        margin-bottom: 3rem;
+    }
+
+    .h-header h2 {
+        font-size: 4rem;
+        font-family: "Ambit", sans-serif;
+        font-weight: 500;
+        color: var(--primary);
+    }
+
+    .product-swiper {
+        padding: 1rem 0 3rem 0;
+    }
+
+    .swiper-slide {
+        height: auto;
+        display: flex;
+    }
+
+    :global(.swiper-button-next),
+    :global(.swiper-button-prev) {
+        color: var(--primary);
+        background: rgba(255, 255, 255, 0.9);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    :global(.swiper-button-next:after),
+    :global(.swiper-button-prev:after) {
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    :global(.swiper-pagination-bullet-active) {
+        background: #4f46e5;
+    }
+</style>

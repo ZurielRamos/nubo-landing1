@@ -1,26 +1,35 @@
-// src/lib/woocommerce.js
-import { GraphQLClient, gql } from 'graphql-request';
+// src/lib/wp.js
+import { GraphQLClient } from "graphql-request";
 
-const client = new GraphQLClient(import.meta.env.WORDPRESS_API_URL);
+// Reemplaza esto con la URL real de tu sitio
+const WP_API = "https://nubolab.strategee.us/graphql";
 
-export async function getProducts() {
-    const query = gql`
-    query GetProducts {
-      products(first: 10) {
-        nodes {
-          id
-          name
-          slug
-          description
-          image {
+export const wpClient = new GraphQLClient(WP_API);
+
+export const ALL_PRODUCTS_QUERY = `
+  query GetAllProducts {
+    products(first: 20) {
+      nodes {
+        id
+        name
+        slug
+        image {
+          sourceUrl
+        }
+        galleryImages(first: 3) {
+          nodes {
             sourceUrl
           }
-          ... on SimpleProduct {
-            price
-          }
+        }
+        ... on SimpleProduct {
+          price
+          stockStatus
+        }
+        ... on VariableProduct {
+          price
+          stockStatus
         }
       }
     }
-  `;
-    return await client.request(query);
-}
+  }
+`;

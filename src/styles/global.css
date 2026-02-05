@@ -16,28 +16,28 @@
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-SemiBold.ttf') format('truetype');
+    src: url('/fonts/Ambit-SemiBold.otf') format('opentype');
     font-weight: 600;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-Bold.ttf') format('truetype');
+    src: url('/fonts/Ambit-Bold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-ExtraBold.ttf') format('truetype');
+    src: url('/fonts/Ambit-ExtraBold.otf') format('opentype');
     font-weight: 800;
     font-style: normal;
 }
 
 @font-face {
     font-family: 'Ambit';
-    src: url('/fonts/Ambit-Black.ttf') format('truetype');
+    src: url('/fonts/Ambit-Black.otf') format('opentype');
     font-weight: 900;
     font-style: normal;
 }
