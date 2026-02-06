@@ -30,28 +30,28 @@
         <div class="text-container">
             <div class="text-content align-right">
                 <h3 class="text-4xl">Trabajo</h3>
-                <p class="font-light text-lg">
+                <p class="font-light text-lg max-lg:text-base">
                     El confort y el soporte adecuados ayudan a mantener una
                     mejor postura y a reducir la tensión acumulada.
                 </p>
             </div>
             <div class="text-content mt-10">
                 <h3 class="text-4xl">Estudio</h3>
-                <p class="font-light text-lg">
+                <p class="font-light text-lg max-lg:text-base">
                     Bienestar que ayuda a mantener una postura cómoda mientras
                     aprendes y te concentras.
                 </p>
             </div>
             <div class="text-content mt-10">
                 <h3 class="text-4xl">Ocio</h3>
-                <p class="font-light text-lg">
+                <p class="font-light text-lg max-lg:text-base">
                     Confort para relajarte y disfrutar tu tiempo libre sin
                     tensión.
                 </p>
             </div>
             <div class="text-content mt-10">
                 <h3 class="text-4xl">Noche</h3>
-                <p class="font-light text-lg">
+                <p class="font-light text-lg max-lg:text-base">
                     Descanso profundo con el soporte necesario para liberar la
                     presión del día y renovar tus energías.
                 </p>
@@ -263,5 +263,32 @@
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
         border-radius: 12px;
         z-index: 2;
+    }
+
+    @media screen and (max-width: 768px) {
+        .work {
+            width: 100%;
+            margin-top: 5rem;
+        }
+
+        .phase {
+            gap: 0.5rem;
+        }
+
+        .image-animation {
+            width: 40%;
+        }
+
+        .text-container {
+            width: 60%;
+            gap: 1rem;
+        }
+
+        .title-container {
+            display: none;
+        }
+        .text-content {
+            padding-right: 1rem;
+        }
     }
 </style>

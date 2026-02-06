@@ -17,10 +17,10 @@ import LogoNubo from "../assets/icons/logo-nubo.svg";
                 necesidades, ayudándote a descansar mejor y despertar renovado.
             </p>
             <a
-                href="https://nubolab.strategee.us/nuestras-tecnologias/"
+                href="https://nubolab.strategee.us/contacto/"
                 class="text-xl flex gap-4 items-center"
             >
-                Conoce nuestra tecnología
+                Contáctanos
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 512 196.6"
@@ -131,5 +131,24 @@ import LogoNubo from "../assets/icons/logo-nubo.svg";
         display: flex;
         gap: 2rem;
         font-weight: 100;
+    }
+
+    @media screen and (max-width: 768px) {
+        .container-links {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container h2 {
+            line-height: 1;
+            margin-top: 2rem;
+        }
     }
 </style>

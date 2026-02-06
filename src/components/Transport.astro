@@ -9,7 +9,7 @@
                         >cuerpo durante el día</span
                     >
                 </div>
-                <p class="text-xl font-light">
+                <p class="text-xl font-light max-lg:text-base">
                     Pasar tiempo sentado, ya sea en casa, en la oficina o en el
                     transporte, puede afectar cómo se siente tu cuerpo al final
                     de la jornada.
@@ -18,8 +18,11 @@
                     Nuestros cojines y soportes están diseñados para acompañar tu
                     postura y brindar confort en los momentos donde más lo necesitas.
                 </p>
-                <a href="#" class="text-xl flex gap-4 items-center">
-                    Llamado a la acción 3
+                <a
+                    href="https://nubolab.strategee.us/nuestras-tecnologias/"
+                    class="text-xl flex gap-4 items-center"
+                >
+                    Conoce nuestra tecnologia
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 512 196.6"
@@ -220,5 +223,38 @@
 
     .title span {
         color: var(--primary);
+    }
+
+    @media screen and (max-width: 768px) {
+        .transport {
+            width: 100%;
+            margin-top: 0rem;
+        }
+
+        .phase {
+            gap: 0.5rem;
+        }
+
+        .image-animation {
+            width: 40%;
+        }
+
+        .text-content {
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+        .text-container {
+            width: 60%;
+            gap: 1rem;
+        }
+
+        .title h2 {
+            font-size: 3rem;
+            font-weight: 500;
+        }
+
+        .title span {
+            font-size: 1.5rem;
+        }
     }
 </style>

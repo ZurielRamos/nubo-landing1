@@ -12,7 +12,7 @@ const products = data.products.nodes;
 
 <div class="products-widget">
     <div class="h-header">
-        <h2>Productos Destacados</h2>
+        <h2>Aliados para <br /> <span>tu descanso</span></h2>
     </div>
 
     <div class="swiper product-swiper">
@@ -86,6 +86,7 @@ const products = data.products.nodes;
         font-size: 4rem;
         font-family: "Ambit", sans-serif;
         font-weight: 500;
+        line-height: 1;
         color: var(--primary);
     }
 
@@ -116,5 +117,13 @@ const products = data.products.nodes;
 
     :global(.swiper-pagination-bullet-active) {
         background: #4f46e5;
+    }
+
+    @media screen and (max-width: 768px) {
+        .h-header h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            line-height: 1;
+        }
     }
 </style>

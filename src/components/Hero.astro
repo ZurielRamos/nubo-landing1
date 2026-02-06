@@ -253,4 +253,27 @@ import Header from "./Header.astro";
         border-radius: 1rem;
         padding: 4rem;
     }
+
+    @media screen and (max-width: 768px) {
+        #hero-canvas {
+            transform: translateY(-0vh) translateX(0vw);
+        }
+        .title-card {
+            transform: translateY(-0vh) translateX(0vw);
+            width: 100%;
+            padding: 2rem;
+        }
+
+        .title h1 {
+            font-size: 3.5rem;
+        }
+
+        .title span {
+            font-size: 2rem;
+        }
+
+        .title strong {
+            font-size: 2.5rem;
+        }
+    }
 </style>
